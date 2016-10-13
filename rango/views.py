@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request):
-    html = "Rango says hello world!" + '</br><a href="/rango/about">About</a>'
-    return HttpResponse(html)
+    context_dict = {'boldmessage': "I am bold font from the context"}
+    return render(request, 'rango/index.html', context_dict)
 
 def default(request):
     return HttpResponse("This is the default page!")
