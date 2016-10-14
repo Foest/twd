@@ -9,5 +9,5 @@ def default(request):
     return HttpResponse("This is the default page!")
 
 def about(request):
-    html = "This is the Rango \'about\' page!" + '</br><a href="/rango/">Index</a>'
-    return HttpResponse(html)
+    context_dict = {'h2': "I am an h2!"}
+    return render(request, 'rango/about.html', context_dict)
