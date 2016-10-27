@@ -1,14 +1,15 @@
-<!DOCTYPE html>
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
 
 
-<html>
-  <head>
-  </head>
-  <body>
-    <h1>This is the About page!</h1>
-    <h2>{{ h2 }}</h2>
-    <p>Why are we showing this lizard picture so much?</p>
-    <a href="/rango/">Index </a><br />
-    <img src="/media/rango.jpg" alt="The Rango pic again!" />
-  </body>
-</html>
+{% block title_block %}
+  About
+{% endblock %}
+
+{% block body_block %}
+  <h1>This is the About page!</h1>
+  <h2>{{ h2 }}</h2>
+  <p>Why are we showing this lizard picture so much?</p>
+  <a href="/rango/">Index </a><br />
+  <img src="/media/rango.jpg" alt="The Rango pic again!" />
+{% endblock %}
