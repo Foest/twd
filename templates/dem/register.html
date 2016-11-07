@@ -1,0 +1,22 @@
+{% extends 'dem/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+  Register
+{% endblock %}
+
+{% block body_block %}
+  <h1>Time to Register!</h1>
+  {% if registered %}
+    <strong>Thank you for registering!</strong>
+    <a href="{% url 'dem:index' %}">Return to the homepage.</a><br />
+  {% else %}
+    <strong>Register here!</strong><br />
+    <form id=dem_user_form method="post" action="{% url 'dem:register' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{user_form.as_p}}
+      {{dem_user_form.as_p}}
+      <input type="submit" name="submit" value="Register">
+    </form>
+  {% endif %}
+{% endblock %}
