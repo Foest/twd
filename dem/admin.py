@@ -1,3 +1,4 @@
 from django.contrib import admin
+from dem.models import DemUser
 
-# Register your models here.
+admin.site.register(DemUser)
