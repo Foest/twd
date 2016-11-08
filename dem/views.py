@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from dem.models import DemUser
 from dem.forms import DemUserForm, UserForm
+from django.contrib.auth import authenticate, login
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 
 def index(request):
     context_dict = {}
@@ -31,3 +34,21 @@ def register(request):
                   {'user_form': user_form,
                    'dem_user_form': dem_user_form,
                     'registered': registered})
+
+def dem_login(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('dem:index'))
+            else:
+                return HttpResponse('Your Dem account is not active.')
+        else:
+            print('Invalid login details {0}, {1}'.format(username, password))
+            return HttpResponse("Invalid login details supplied")
+    else:
+        return render(request, 'dem/login.html', {})
