@@ -22,7 +22,10 @@ def about(request):
     # if request.session.test_cookie_worked():
     #     print("THE TEST COOKIE IS WORKING!")
     #     request.session.delete_test_cookie()
-    context_dict = {'h2': "I am an h2!"}
+    visitor_cookie_handler(request)
+    visits = request.session['visits']
+
+    context_dict = {'h2': "I am an h2!", 'visits': visits}
     return render(request, 'rango/about.html', context_dict)
 
 def show_category(request, category_name_slug):
@@ -135,7 +138,7 @@ def visitor_cookie_handler(request):
     last_visit_cookie = get_server_side_cookie(request, 'last_visit', str(datetime.now()))
     last_visit_time = datetime.strptime(last_visit_cookie[:-7], '%Y-%m-%d %H:%M:%S')
 
-    if (datetime.now() - last_visit_time).days > 0:
+    if (datetime.now() - last_visit_time).seconds > 0:
         visits += 1
         request.session['last_visit'] = str(datetime.now())
     else:
@@ -147,5 +150,5 @@ def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
     if not val:
         val = default_val
-    #print("" + cookie + ": " + str(val))
+    print("" + cookie + ": " + str(val))
     return val
