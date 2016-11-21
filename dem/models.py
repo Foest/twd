@@ -32,3 +32,12 @@ class Proposal(models.Model):
 
     class Meta:
         verbose_name_plural = 'Proposals'
+
+class Mission(models.Model):
+    title = models.CharField(max_length=128, unique=True)
+    slug = models.SlugField(unique=True)
+    creator = models.ForeignKey(DemUser)
+    date_created = models.DateTimeField(auto_now_add=True)
+    lat_coord = models.DecimalField(max_digits=9, decimal_places=6)
+    lng_coord = models.DecimalField(max_digits=9, decimal_places=6)
+    description = models.TextField(default="No Description Available")
