@@ -35,20 +35,20 @@ def register(request):
                    'dem_user_form': dem_user_form,
                     'registered': registered})
 
-def dem_login(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(reverse('dem:index'))
-            else:
-                return HttpResponse('Your Dem account is not active.')
-        else:
-            print('Invalid login details {0}, {1}'.format(username, password))
-            return HttpResponse("Invalid login details supplied")
-    else:
-        return render(request, 'dem/login.html', {})
+# def dem_login(request):
+#     if request.method == "POST":
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(username=username, password=password)
+#
+#         if user:
+#             if user.is_active:
+#                 login(request, user)
+#                 return HttpResponseRedirect(reverse('dem:index'))
+#             else:
+#                 return HttpResponse('Your Dem account is not active.')
+#         else:
+#             print('Invalid login details {0}, {1}'.format(username, password))
+#             return HttpResponse("Invalid login details supplied")
+#     else:
+#         return render(request, 'dem/login.html', {})
