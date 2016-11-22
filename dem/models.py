@@ -7,12 +7,20 @@ from datetime import datetime
 class DemUser(models.Model):
     user = models.OneToOneField(User)
     state = USStateField(null=True, blank=True)
+    monies = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
 
     class Meta:
         verbose_name_plural = 'Dem Users'
+
+class Reward(models.Model):
+    monies = models.IntegerField(default=100)
+    title = models.CharField(max_length=128, unique=True)
+    
+    def __str__(self):
+        return self.title
 
 class Proposal(models.Model):
     title = models.CharField(max_length=128, unique=True)
@@ -41,3 +49,4 @@ class Mission(models.Model):
     lat_coord = models.DecimalField(max_digits=9, decimal_places=6)
     lng_coord = models.DecimalField(max_digits=9, decimal_places=6)
     description = models.TextField(default="No Description Available")
+    reward = models.ForeignKey(Reward)
