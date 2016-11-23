@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from dem.models import DemUser
+from dem.models import DemUser, Assignment
 from dem.forms import DemUserForm, UserForm
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     context_dict = {}
@@ -34,6 +35,16 @@ def register(request):
                   {'user_form': user_form,
                    'dem_user_form': dem_user_form,
                     'registered': registered})
+
+@login_required
+def my_assignments(request):
+    context_dict = {}
+    dem_user = DemUser.objects.get(user=request.user)
+    if request.user.is_active:
+        context_dict['assignments'] = Assignment.objects.filter(assignee=dem_user)
+        return render(request, 'dem/my_assignments.html', context_dict)
+    else:
+        return HttpResponse("You are not logged in!")
 
 # def dem_login(request):
 #     if request.method == "POST":
