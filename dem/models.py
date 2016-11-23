@@ -18,7 +18,7 @@ class DemUser(models.Model):
 class Reward(models.Model):
     monies = models.IntegerField(default=100)
     title = models.CharField(max_length=128, unique=True)
-    
+
     def __str__(self):
         return self.title
 
@@ -46,7 +46,19 @@ class Mission(models.Model):
     slug = models.SlugField(unique=True)
     creator = models.ForeignKey(DemUser)
     date_created = models.DateTimeField(auto_now_add=True)
+    #lat_coord = models.DecimalField(max_digits=9, decimal_places=6)
+    #lng_coord = models.DecimalField(max_digits=9, decimal_places=6)
+    description = models.TextField(default="No Description Available")
+    #reward = models.ForeignKey(Reward)
+    def __str__(self):
+        return self.title
+
+class Assignment(models.Model):
+    assignee = models.ForeignKey(DemUser)
+    mission = models.ForeignKey(Mission)
+    reward = models.ForeignKey(Reward)
     lat_coord = models.DecimalField(max_digits=9, decimal_places=6)
     lng_coord = models.DecimalField(max_digits=9, decimal_places=6)
-    description = models.TextField(default="No Description Available")
-    reward = models.ForeignKey(Reward)
+
+    def __str__(self):
+        return self.mission.title
