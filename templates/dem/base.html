@@ -31,6 +31,7 @@
           <li><a href="{% url 'dem:register' %}">Register</a></li>
         {% else %}
           <li><a href="{% url 'auth_logout' %}?next=/dem/">Logout</a></li>
+          <li><a href="{% url 'dem:my_assignments' %}">My Assignments</a></li>
         {% endif %}
       </ul>
     </div>
