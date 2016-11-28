@@ -41,7 +41,7 @@ def my_assignments(request):
     context_dict = {}
     dem_user = DemUser.objects.get(user=request.user)
     if request.user.is_active:
-        context_dict['assignments'] = Assignment.objects.filter(assignee=dem_user)
+        context_dict['assignments'] = get_user_assignments(dem_user)
         return render(request, 'dem/my_assignments.html', context_dict)
     else:
         return HttpResponse("You are not logged in!")
@@ -63,3 +63,6 @@ def my_assignments(request):
 #             return HttpResponse("Invalid login details supplied")
 #     else:
 #         return render(request, 'dem/login.html', {})
+
+def get_user_assignments(dem_user):
+        return Assignment.objects.filter(assignee=dem_user)
