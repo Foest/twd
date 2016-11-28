@@ -8,7 +8,7 @@
 {% block body_block %}
 <h1>{{ user.username }}'s Assignments</h1>
   {% if assignments %}
-    <table>
+    <table border="1">
       <tr>
         <th>Title</th>
         <th>Latitude</th>
@@ -16,13 +16,13 @@
       </tr>
       {% for assignment in assignments %}
         <tr>
-          <td>{{ assignment.mission.title }}</td>
+          <td><a href="{% url 'dem:show_mission' assignment.mission.slug %}">{{assignment.mission.title}}</a></td>
           <td>{{assignment.lat_coord}}</td>
           <td>{{assignment.lng_coord}}</td>
         </tr>
       {% endfor %}
     </table>
   {% else %}
-    <strong>No pages currently in category.</strong>
+    <strong>No assignments for you.</strong>
   {% endif %}
 {% endblock %}
