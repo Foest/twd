@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from dem.models import DemUser, Assignment
+from dem.models import DemUser, Assignment, Mission
 from dem.forms import DemUserForm, UserForm
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
@@ -45,6 +45,33 @@ def my_assignments(request):
         return render(request, 'dem/my_assignments.html', context_dict)
     else:
         return HttpResponse("You are not logged in!")
+
+def show_mission(request, mission_name_slug):
+    context_dict = {}
+    try:
+        mission = Mission.objects.get(slug=mission_name_slug)
+        context_dict['mission'] = mission
+    except Mission.DoesNotExist:
+        context_dict['mission'] = None
+    return render(request, 'dem/mission.html', context_dict)
+
+# def assignment(request):
+#     if request.method == "POST":
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(username=username, password=password)
+#
+#         if user:
+#             if user.is_active:
+#                 login(request, user)
+#                 return HttpResponseRedirect(reverse('dem:index'))
+#             else:
+#                 return HttpResponse('Your Dem account is not active.')
+#         else:
+#             print('Invalid login details {0}, {1}'.format(username, password))
+#             return HttpResponse("Invalid login details supplied")
+#     else:
+#         return render(request, 'dem/login.html', {})
 
 # def dem_login(request):
 #     if request.method == "POST":
