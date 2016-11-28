@@ -1,0 +1,27 @@
+{% extends 'dem/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+  {{mission.title}}
+{% endblock %}
+
+{% block body_block %}
+  {% if mission %}
+    <table border="1">
+      <tr>
+        <th>Title</th>
+        <th>Creator</th>
+        <th>Date Created</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>{{mission.title}}</td>
+        <td>{{mission.creator}}</td>
+        <td>{{mission.date_created}}</td>
+        <td>{{mission.description}}</td>
+      </tr>
+    </table>
+  {% else %}
+    The specified mission does not exist!
+  {% endif %}
+{% endblock %}
