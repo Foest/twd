@@ -8,11 +8,20 @@
 {% block body_block %}
 <h1>{{ user.username }}'s Assignments</h1>
   {% if assignments %}
-    <ul>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+      </tr>
       {% for assignment in assignments %}
-        <li>{{ assignment.mission.title }}</li>
+        <tr>
+          <td>{{ assignment.mission.title }}</td>
+          <td>{{assignment.lat_coord}}</td>
+          <td>{{assignment.lng_coord}}</td>
+        </tr>
       {% endfor %}
-    </ul>
+    </table>
   {% else %}
     <strong>No pages currently in category.</strong>
   {% endif %}
