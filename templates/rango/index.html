@@ -1,46 +1,46 @@
 {% extends 'rango/base.html' %}
 {% load staticfiles %}
-
-
 {% block title_block %}
-  Home
+  Index
 {% endblock %}
-
 {% block body_block %}
-  {% if user.is_authenticated %}
-    Howdy {{ user.username }}!
-  {% else %}
-    hey there partner!
-  {% endif %}
-
-  <div>
-    <strong>Most Liked Categories</strong>
-    {% if categories %}
-    <ul>
-      {% for category in categories %}
-        <li>
-          <a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+  <div class="jumbotron">
+    <h1 class="display-3">Rango says...</h1>
+    {% if user.is_authenticated %}
+      <h1>hey there {{ user.username }}!</h1>
     {% else %}
-      <strong>There are no categories present.</strong>
+      <h1>hey there partner! </h1>
     {% endif %}
   </div>
-
-  <div>
-    <strong>Most Viewed Pages</strong>
-    {% if pages %}
-    <ul>
-      {% for page in pages %}
-        <li>
-          <a href="{{ page.url }}">{{ page.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-      <strong>There are no pages present.</strong>
-    {% endif %}
+  <div class="row marketing">
+    <div class="col-lg-6">
+      <h4>Most Liked Categories</h4>
+      <p>
+        {% if categories %}
+          <ul class="list-group">
+            {% for category in categories %}
+              <li class="list-group-item"><a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a></li>
+              {% endfor %}
+            </ul>
+        {% else %}
+          <strong>There are no categories present.</strong>
+        {% endif %}
+      </p>
+    </div>
+    <div class="col-lg-6">
+      <h4>Most Viewed Pages</h4>
+      <p>
+        {% if pages %}
+          <ul class="list-group">
+            {% for page in pages %}
+              <li class="list-group-item"><a href="{{ page.url }}">{{ page.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <strong>There are no categories present.</strong>
+        {% endif %}
+      </p>
+    </div>
   </div>
-  <img src="{% static "images/rango.jpg" %}" alt="A picture of Rango" />
+  <img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" />
 {% endblock %}
