@@ -93,3 +93,6 @@ def show_mission(request, mission_name_slug):
 
 def get_user_assignments(dem_user):
         return Assignment.objects.filter(assignee=dem_user)
+
+def interact_test(request):
+    return render(request, 'dem/interact_test.html', {})
